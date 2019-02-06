@@ -209,7 +209,7 @@ class ArmAndClaw(object):
         self.raise_arm()
         self.motor.reset_position()
         while True:
-            x=self.motor.get_position()
+            x=abs(self.motor.get_position())
             if x>=5112:
                 self.motor.reset_position()
                 break
