@@ -208,6 +208,7 @@ class ArmAndClaw(object):
         """
         self.raise_arm()
         self.motor.reset_position()
+        self.motor.turn_on(-100)
         while True:
             x=abs(self.motor.get_position())
             if x>=5112:
