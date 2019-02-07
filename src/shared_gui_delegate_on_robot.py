@@ -18,3 +18,6 @@ class DelegateThatReceives(object):
 
     def stop(self):
         self.robot.drive_system.stop()
+
+    def backward(self,left_wheel_speed, right_wheel_speed):
+        self.robot.drive_system.go(-int(left_wheel_speed), -int(right_wheel_speed))
