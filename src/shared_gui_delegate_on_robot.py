@@ -24,3 +24,8 @@ class DelegateThatReceives(object):
 
     def calibrate_arm(self):
         self.robot.arm_and_claw.calibrate_arm()
+
+    def raise_arm(self):
+        self.robot.arm_and_claw.raise_arm()
+
+    
