@@ -21,6 +21,14 @@ def main():
 def run_test_arm():
     robot=rosebot.RoseBot()
     robot.arm_and_claw.lower_arm()
+def real_thing():
+    robot=rosebot.RoseBot
+    delegate_that_receivers=DelegateThatReceiver()
+    mqtt_receiver=com.MqttClient(delegate_that_receivers)
+    mqtt_receiver.connect_to_pc()
+
+    while True:
+        time.sleep(0.01)
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
