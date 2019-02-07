@@ -74,15 +74,22 @@ class DriveSystem(object):
 
     def go(self, left_wheel_speed, right_wheel_speed):
         """ Makes the left and right wheel motors spin at the given speeds. """
-        
+        self.left_motor.turn_on(left_wheel_speed)
+        self.right_motor.turn_on(right_wheel_speed)
     def stop(self):
         """ Stops the left and right wheel motors. """
-
+        self.left_motor.turn_off()
+        self.right_motor.turn_off()
     def go_straight_for_seconds(self, seconds, speed):
         """
         Makes the robot go straight (forward if speed > 0, else backward)
         at the given speed for the given number of seconds.
         """
+        self.left_motor.turn_on(speed)
+        self.right_motor.turn_on(speed)
+        time.sleep(seconds)
+        self.right_motor.turn_off()
+        self.right_motor.turn_off()
 
     def go_straight_for_inches_using_time(self, inches, speed):
         """
@@ -90,6 +97,10 @@ class DriveSystem(object):
         for the given number of inches, using the approximate
         conversion factor of 10.0 inches per second at 100 (full) speed.
         """
+        self.go(speed,speed)
+        x=inches/10
+        time.sleep(x)
+        self.stop()
 
     def go_straight_for_inches_using_encoder(self, inches, speed):
         """
@@ -97,6 +108,15 @@ class DriveSystem(object):
         at the given speed for the given number of inches,
         using the encoder (degrees traveled sensor) built into the motors.
         """
+        inches_per_degree=self.left_motor.WheelCircumference/360
+        desired_degree=inches/inches_per_degree
+        x=self.left_motor.get_position()
+        while True:
+            y=self.left_motor.get_position()
+            z=abs(x-y)
+            if z==desired_degree:
+                self.stop()
+                break
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the color sensor.
@@ -189,6 +209,7 @@ class ArmAndClaw(object):
         """
         self.touch_sensor = touch_sensor
         self.motor = Motor('A', motor_type='medium')
+        self.calibrate_arm()
 
     def raise_arm(self):
         """ Raises the Arm until its touch sensor is pressed. """
@@ -213,23 +234,38 @@ class ArmAndClaw(object):
         while True:
             x=abs(self.motor.get_position())
             if x>=5112:
+                self.motor.turn_off()
                 self.motor.reset_position()
                 break
 
-        self.lower_arm()
+
 
     def move_arm_to_position(self, desired_arm_position):
         """
         Move its Arm to the given position, where 0 means all the way DOWN.
         The robot must have previously calibrated its Arm.
         """
-        self.motor.turn_on()
+        self.raise_arm()
+        self.motor.turn_on(100)
+        while True:
+            x=abs(self.motor.get_position())
+            if x==desired_arm_position:
+                self.motor.turn_off()
+                break
+
 
     def lower_arm(self):
         """
         Lowers the Arm until it is all the way down, i.e., position 0.
         The robot must have previously calibrated its Arm.
         """
+        while True:
+            self.motor.turn_on(-100)
+            if self.motor.get_position()==0:
+                self.motor.turn_off()
+                break
+
+
 
 
 ###############################################################################
@@ -326,7 +362,7 @@ class LEDSystem(object):
 ###############################################################################
 ###############################################################################
 class Motor(object):
-
+    WheelCircumference = 1.3 * math.pi
     def __init__(self, port, motor_type='large'):
         # port must be 'A', 'B', 'C', or 'D'.  Use 'arm' as motor_type for Arm.
         if motor_type == 'large':
