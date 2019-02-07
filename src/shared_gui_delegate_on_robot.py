@@ -21,3 +21,6 @@ class DelegateThatReceives(object):
 
     def backward(self,left_wheel_speed, right_wheel_speed):
         self.robot.drive_system.go(-int(left_wheel_speed), -int(right_wheel_speed))
+
+    def calibrate_arm(self):
+        self.robot.arm_and_claw.calibrate_arm()
