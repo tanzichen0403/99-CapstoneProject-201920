@@ -29,7 +29,7 @@ def main():
     # The root TK object for the GUI:
     # -------------------------------------------------------------------------
     root=tkinter.Tk()
-    root.title('Zichen_userface')
+    root.title('J.A.V.I.S1.0')
 
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
@@ -64,7 +64,6 @@ def get_shared_frames(main_frame, mqtt_sender):
     arm_frame=shared_gui.get_arm_frame(main_frame,mqtt_sender)
     color_arm=shared_gui.get_control_frame(main_frame,mqtt_sender)
     return teleop_frame,arm_frame,color_arm
-
     pass
 
 
@@ -72,7 +71,6 @@ def grid_frames(teleop_frame, arm_frame, control_frame):
     teleop_frame.grid(row=0,column=0)
     arm_frame.grid(row=1,column=0)
     control_frame.grid(row=2,column=0)
-
     pass
 
 
