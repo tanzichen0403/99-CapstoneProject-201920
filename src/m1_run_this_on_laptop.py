@@ -77,7 +77,6 @@ def get_personal_design_frame(window,mqtt_sendr):
     frame=ttk.Frame(window,padding=10,borderwidth=5,relief='ridge')
     frame.grid()
     frame_lable=ttk.Label(frame,text='special effect')
-    
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
