@@ -46,12 +46,12 @@ def main():
     # Frames that are particular to my individual contributions to the project.
     # -------------------------------------------------------------------------
     # TODO: Implement and call get_my_frames(...)
-    teleop_frame,arm_frame,control_frame=get_shared_frames(main_frame,mqtt_send)
+    teleop_frame,arm_frame,control_frame,x,y=get_shared_frames(main_frame,mqtt_send)
 
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame,arm_frame,control_frame)
+    grid_frames(teleop_frame,arm_frame,control_frame,x,y)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -63,14 +63,18 @@ def get_shared_frames(main_frame, mqtt_sender):
     teleop_frame=shared_gui.get_teleoperation_frame(main_frame,mqtt_sender)
     arm_frame=shared_gui.get_arm_frame(main_frame,mqtt_sender)
     color_arm=shared_gui.get_control_frame(main_frame,mqtt_sender)
-    return teleop_frame,arm_frame,color_arm
+    x=shared_gui.get_drivesystem_frame(main_frame, mqtt_sender)
+    y=shared_gui.get_soundsystem_frame(main_frame,mqtt_sender)
+    return teleop_frame,arm_frame,color_arm,x,y
     pass
 
 
-def grid_frames(teleop_frame, arm_frame, control_frame):
+def grid_frames(teleop_frame, arm_frame, control_frame,x,y):
     teleop_frame.grid(row=0,column=0)
     arm_frame.grid(row=1,column=0)
     control_frame.grid(row=2,column=0)
+    x.grid(row=3,column=0)
+    y.grid(row=0,column=1)
     pass
 
 def get_personal_design_frame(window,mqtt_sendr):

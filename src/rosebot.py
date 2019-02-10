@@ -33,6 +33,7 @@ class RoseBot(object):
         self.sensor_system = SensorSystem()
         self.drive_system = DriveSystem(self.sensor_system)
         self.arm_and_claw = ArmAndClaw(self.sensor_system.touch_sensor)
+        self.sound_system=SoundSystem(Beeper(),ToneMaker(),SpeechMaker(),SongMaker())
 
 
 ###############################################################################
@@ -80,6 +81,19 @@ class DriveSystem(object):
         """ Stops the left and right wheel motors. """
         self.left_motor.turn_off()
         self.right_motor.turn_off()
+
+    def left(self,left,right):
+        self.left_motor.turn_on(-left)
+        self.right_motor.turn_on(right)
+        time.sleep(0.1)
+        self.stop()
+
+    def right(self,left,right):
+        self.left_motor.turn_on(left)
+        self.right_motor.turn_on(-right)
+        time.sleep(0.1)
+        self.stop()
+
     def go_straight_for_seconds(self, seconds, speed):
         """
         Makes the robot go straight (forward if speed > 0, else backward)
@@ -152,9 +166,14 @@ class DriveSystem(object):
         Goes straight at the given speed until the color returned
         by the color_sensor is equal to the given color.
         """
+
         # -------------------------------------------------------------------------
         # TODO: Ask Dr.Mutchler About how to conver color to certain value
         # -------------------------------------------------------------------------
+        self.go(speed,speed)
+        while True:
+            x=self.sensor_system.color_sensor.color
+
 
     def go_straight_until_color_is_not(self, color, speed):
         """
@@ -372,6 +391,18 @@ class SoundSystem(object):
         """
         for i in range(3):
             self.tone_maker.tone(self, 1000+1000*i, 1)
+    def beeper_for_n_times(self,n):
+        "beeper for n times"
+        for i in range (n):
+            self.beeper.beep()
+            time.sleep(0.1)
+    def play_a_Tone(self,fren,Dur):
+        self.tone_maker.tone(fren,Dur)
+
+    def say_a_phrase(self):
+        ""
+
+
 
 ###############################################################################
 #    LEDSystem
