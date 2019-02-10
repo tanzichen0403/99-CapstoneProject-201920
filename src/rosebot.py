@@ -108,6 +108,7 @@ class DriveSystem(object):
         at the given speed for the given number of inches,
         using the encoder (degrees traveled sensor) built into the motors.
         """
+        self.go(speed,speed)
         inches_per_degree=self.left_motor.WheelCircumference/360
         desired_degree=inches/inches_per_degree
         x=self.left_motor.get_position()
@@ -127,24 +128,43 @@ class DriveSystem(object):
         Goes straight at the given speed until the intensity returned
         by the color_sensor is less than the given intensity.
         """
+        self.go(speed,speed)
+        while True:
+            x=self.sensor_system.color_sensor.get_reflected_light_intensity()
+            if x<intensity:
+                break
+        self.stop()
 
     def go_straight_until_intensity_is_greater_than(self, intensity, speed):
         """
         Goes straight at the given speed until the intensity returned
         by the color_sensor is greater than the given intensity.
         """
+        self.go(speed,speed)
+        while True:
+            x = self.sensor_system.color_sensor.get_reflected_light_intensity()
+            if x > intensity:
+                break
+        self.stop()
 
     def go_straight_until_color_is(self, color, speed):
         """
         Goes straight at the given speed until the color returned
         by the color_sensor is equal to the given color.
         """
+        # -------------------------------------------------------------------------
+        # TODO: Ask Dr.Mutchler About how to conver color to certain value
+        # -------------------------------------------------------------------------
 
     def go_straight_until_color_is_not(self, color, speed):
         """
         Goes straight at the given speed until the color returned
         by the color_sensor is NOT equal to the given color.
         """
+        # -------------------------------------------------------------------------
+        # TODO: Ask Dr.Mutchler About how to conver color to certain value
+        # -------------------------------------------------------------------------
+
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared proximity sensor.
@@ -154,6 +174,13 @@ class DriveSystem(object):
         Goes forward at the given speed until the robot is less than
         the given number of inches from the nearest object that it senses.
         """
+        self.go(speed,speed)
+        while True:
+            x=self.sensor_system.infrared_senseor.get_distance()
+            if x<inches:
+                break
+        self.stop()
+
 
     def go_backward_until_distance_is_greater_than(self, inches, speed):
         """
@@ -162,11 +189,31 @@ class DriveSystem(object):
         Assumes that it senses an object when it starts.
         """
 
+        self.go(-speed,-speed)
+        while True:
+            x=self.sensor_system.infrared_senseor.get_distance()
+            if x>inches:
+                break
+        self.stop()
+
     def go_until_distance_is_within(self, delta_inches, speed):
         """
         Goes forward or backward, repeated as necessary, until the robot is
         within the given delta-inches from the nearest object that it senses.
         """
+
+        while True:
+            x = self.sensor_system.infrared_senseor.get_distance()
+            if x>delta_inches:
+                self.go(speed,speed)
+            elif x<delta_inches:
+                self.go(-speed,-speed)
+            else:
+                self.stop()
+                break
+
+
+
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared beacon sensor.
@@ -245,14 +292,25 @@ class ArmAndClaw(object):
         Move its Arm to the given position, where 0 means all the way DOWN.
         The robot must have previously calibrated its Arm.
         """
-        self.raise_arm()
-        self.motor.turn_on(100)
-        while True:
-            x=abs(self.motor.get_position())
-            if x==desired_arm_position:
-                self.motor.turn_off()
-                break
-
+        y=self.motor.get_position()
+        if y<desired_arm_position:
+            self.raise_arm()
+            self.motor.turn_on(100)
+            while True:
+                x=abs(self.motor.get_position())
+                if x==desired_arm_position:
+                    self.motor.turn_off()
+                    break
+            self.motor.turn_off()
+        else:
+            self.raise_arm()
+            self.motor.turn_on(-100)
+            while True:
+                x = abs(self.motor.get_position())
+                if x == desired_arm_position:
+                    self.motor.turn_off()
+                    break
+            self.motor.turn_off()
 
     def lower_arm(self):
         """
@@ -280,6 +338,8 @@ class SensorSystem(object):
     """
     def __init__(self):
         self.touch_sensor = TouchSensor(1)
+        self.color_sensor = ColorSensor(2)
+        self.infrared_senseor=InfraredProximitySensor(3)
         # These need the port numbers
         # self.color_sensor = ColorSensor()
         # self.ir_proximity_sensor = InfraredProximitySensor()
@@ -310,7 +370,8 @@ class SoundSystem(object):
         Plays an increasing sequence of short tones,
         stopping when the touch sensor is pressed.
         """
-
+        for i in range(3):
+            self.tone_maker.tone(self, 1000+1000*i, 1)
 
 ###############################################################################
 #    LEDSystem
