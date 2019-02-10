@@ -203,7 +203,7 @@ def get_drivesystem_frame(window, mqtt_sender):
     # Set the button callbacks:
     second_button["command"] = lambda: handle_go_straight_for_seconds(second_entry, speed_entry, mqtt_sender)
     inches_button["command"] = lambda: handle_go_straight_for_inches_using_time(inches_entry, speed_entry,mqtt_sender)
-    encoder_button["command"] = lambda: handle_go_straight_for_inches_using_encoder(encoder_button, speed_entry,
+    encoder_button["command"] = lambda: handle_go_straight_for_inches_using_encoder(encoder_entry, speed_entry,
                                                                                     mqtt_sender)
 
     return frame
@@ -380,9 +380,14 @@ def handle_go_straight_for_seconds(seconds,speed, mqtt_sender):
 
 def handle_go_straight_for_inches_using_time(inches,speed, mqtt_sender):
     ""
+    print('go straight for inches using time')
+    mqtt_sender.send_message('go_straight_for_inches_using_time', [inches.get(),speed.get()])
 
 def handle_go_straight_for_inches_using_encoder(inches,speed, mqtt_sender):
     ""
+    print('go_straight_for_inches_using_encoder')
+    mqtt_sender.send_message('go_straight_for_inches_using_encoder', [inches.get(), speed.get()])
+
 def handle_beep(n,mqtt_sender):
     ""
 def handle_tone(fren,Dur,mqtt_sender):
