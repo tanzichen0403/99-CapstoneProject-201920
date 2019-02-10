@@ -188,7 +188,7 @@ def get_drivesystem_frame(window, mqtt_sender):
     speed_label.grid(row=1, column=0)
     speed_entry.grid(row=2, column=0)
 
-    second_label.grid(row=3, column=0)
+    second_label.grid(row=3, column=0,sticky='w')
     second_entry.grid(row=4, column=0)
     second_button.grid(row=4, column=2)
 

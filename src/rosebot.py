@@ -102,9 +102,7 @@ class DriveSystem(object):
         self.left_motor.turn_on(speed)
         self.right_motor.turn_on(speed)
         time.sleep(seconds)
-        self.right_motor.turn_off()
-        self.right_motor.turn_off()
-
+        self.stop()
     def go_straight_for_inches_using_time(self, inches, speed):
         """
         Makes the robot go straight at the given speed
