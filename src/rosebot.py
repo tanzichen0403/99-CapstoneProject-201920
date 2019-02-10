@@ -315,7 +315,7 @@ class ArmAndClaw(object):
         if y<desired_arm_position:
             self.motor.turn_on(100)
             while True:
-                x=abs(self.motor.get_position())
+                x=self.motor.get_position()
                 if x>=desired_arm_position:
                     self.motor.turn_off()
                     break
@@ -323,7 +323,7 @@ class ArmAndClaw(object):
         else:
             self.motor.turn_on(-100)
             while True:
-                x = abs(self.motor.get_position())
+                x = self.motor.get_position()
                 if x <= desired_arm_position:
                     self.motor.turn_off()
                     break
