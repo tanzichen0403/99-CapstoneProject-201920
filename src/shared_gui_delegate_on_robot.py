@@ -30,3 +30,9 @@ class DelegateThatReceives(object):
 
     def lower_arm(self):
         self.robot.arm_and_claw.lower_arm()
+
+    def move_arm_to_position(self, position):
+        self.robot.arm_and_claw.move_arm_to_position(int(position))
+
+    def left(self, left_wheel_speed, right_wheel_speed):
+        self.robot.drive_system.left(left_wheel_speed,right_wheel_speed)
