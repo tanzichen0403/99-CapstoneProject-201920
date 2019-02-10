@@ -183,20 +183,20 @@ def get_drivesystem_frame(window, mqtt_sender):
     encoder_button = ttk.Button(frame, text='Go for inchers(encoder)')
 
     # Grid the widgets:
-    frame_label.grid(row=0, column=1)
+    frame_label.grid(row=0, column=1,sticky='w')
 
-    speed_label.grid(row=1, column=0)
-    speed_entry.grid(row=2, column=0)
+    speed_label.grid(row=1, column=0,sticky='w')
+    speed_entry.grid(row=2, column=0,sticky='w')
 
     second_label.grid(row=3, column=0,sticky='w')
-    second_entry.grid(row=4, column=0)
+    second_entry.grid(row=4, column=0,sticky='w')
     second_button.grid(row=4, column=2)
 
-    inches_label.grid(row=5, column=0)
-    inches_entry.grid(row=6, column=0)
+    inches_label.grid(row=5, column=0,sticky='w')
+    inches_entry.grid(row=6, column=0,sticky='w')
     inches_button.grid(row=6, column=2)
 
-    encoder_label.grid(row=7, column=0)
+    encoder_label.grid(row=7, column=0,sticky='w')
     encoder_entry.grid(row=8, column=0)
     encoder_button.grid(row=8, column=2)
 
