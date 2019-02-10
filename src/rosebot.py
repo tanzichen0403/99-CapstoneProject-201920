@@ -85,13 +85,13 @@ class DriveSystem(object):
     def left(self,left,right):
         self.left_motor.turn_on(-left)
         self.right_motor.turn_on(right)
-        time.sleep(0.1)
+        time.sleep(0.5)
         self.stop()
 
     def right(self,left,right):
         self.left_motor.turn_on(left)
         self.right_motor.turn_on(-right)
-        time.sleep(0.1)
+        time.sleep(0.5)
         self.stop()
 
     def go_straight_for_seconds(self, seconds, speed):
@@ -129,7 +129,7 @@ class DriveSystem(object):
         while True:
             y=self.left_motor.get_position()
             z=abs(x-y)
-            if z==desired_degree:
+            if z>desired_degree:
                 self.stop()
                 break
 
