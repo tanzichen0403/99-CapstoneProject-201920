@@ -375,6 +375,8 @@ def handle_move_arm_to_position(arm_position_entry, mqtt_sender):
 
 def handle_go_straight_for_seconds(seconds,speed, mqtt_sender):
     ""
+    print('go straight for seconds')
+    mqtt_sender.send_message('go_straight_for_seconds', [seconds.get(), speed.get()])
 
 def handle_go_straight_for_inches_using_time(inches,speed, mqtt_sender):
     ""
