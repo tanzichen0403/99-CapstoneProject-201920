@@ -261,6 +261,9 @@ class DriveSystem(object):
 
 
 
+
+
+
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared beacon sensor.
     # -------------------------------------------------------------------------
@@ -435,6 +438,8 @@ class SoundSystem(object):
     def beep_for_n_time(self,n):
         for i in range(n):
             self.beeper.beep()
+            time.sleep(0.1)
+
     def play_a_tone_for_a_givien_frenquency(self,fren,dur):
         self.tone_maker.play_tone(fren,dur)
 
