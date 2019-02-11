@@ -197,7 +197,7 @@ def get_drivesystem_frame(window, mqtt_sender):
     inches_button.grid(row=6, column=2)
 
     encoder_label.grid(row=7, column=0,sticky='w')
-    encoder_entry.grid(row=8, column=0)
+    encoder_entry.grid(row=8, column=0,sticky='w')
     encoder_button.grid(row=8, column=2)
 
     # Set the button callbacks:
@@ -247,18 +247,18 @@ def get_soundsystem_frame(window, mqtt_sender):
     #
     frame_label.grid(row=0, column=1)
 
-    beeper_label.grid(row=1, column=0)
-    beeper_entry.grid(row=2, column=0)
+    beeper_label.grid(row=1, column=0,sticky='w')
+    beeper_entry.grid(row=2, column=0,sticky='w')
     beeper_button.grid(row=2,column=2)
 
-    fren_label.grid(row=4, column=0)
-    fren_entry.grid(row=5, column=0)
-    Dur_label.grid(row=6, column=0)
-    Dur_entry.grid(row=7, column=0)
+    fren_label.grid(row=4, column=0,sticky='w')
+    fren_entry.grid(row=5, column=0,sticky='w')
+    Dur_label.grid(row=6, column=0,sticky='w')
+    Dur_entry.grid(row=7, column=0,sticky='w')
     Tone_button.grid(row=7, column=2)
 
-    Phrase_label.grid(row=9, column=0)
-    Phrase_entry.grid(row=10, column=0)
+    Phrase_label.grid(row=9, column=0,sticky='w')
+    Phrase_entry.grid(row=10, column=0,sticky='w')
     Phrase_button.grid(row=10, column=2)
 
 
