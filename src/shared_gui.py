@@ -391,10 +391,15 @@ def handle_go_straight_for_inches_using_encoder(inches,speed, mqtt_sender):
 
 def handle_beep(n,mqtt_sender):
     ""
+    print('beep')
+    mqtt_sender.send_message('beep', [n.get()])
 def handle_tone(fren,Dur,mqtt_sender):
     ""
+    print('make a tone')
+    mqtt_sender.send_message('tone', [fren.get(),Dur.get()])
 def say_a_pharse(x):
     ""
+    
 ###############################################################################
 # Handlers for Buttons in the Control frame.
 ###############################################################################
