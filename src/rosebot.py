@@ -182,7 +182,12 @@ class DriveSystem(object):
         # -------------------------------------------------------------------------
         self.go(speed,speed)
         while True:
-            x=self.sensor_system.color_sensor.
+            x=str(self.sensor_system.color_sensor.get_color_as_name())
+            if x==str(color):
+                break
+        self.stop()
+
+
 
 
     def go_straight_until_color_is_not(self, color, speed):
@@ -196,6 +201,13 @@ class DriveSystem(object):
         # -------------------------------------------------------------------------
         # TODO: Ask Dr.Mutchler About how to conver color to certain value
         # -------------------------------------------------------------------------
+        while True:
+            x=self.sensor_system.color_sensor.get_color_as_name()
+            if x==str(color):
+                self.go(speed,speed)
+            else:
+                self.stop()
+
 
 
     # -------------------------------------------------------------------------
@@ -208,7 +220,7 @@ class DriveSystem(object):
         """
         self.go(speed,speed)
         while True:
-            x=self.sensor_system.infrared_senseor.get_distance()
+            x=self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             if x<inches:
                 break
         self.stop()
@@ -223,7 +235,7 @@ class DriveSystem(object):
 
         self.go(-speed,-speed)
         while True:
-            x=self.sensor_system.infrared_senseor.get_distance()
+            x = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             if x>inches:
                 break
         self.stop()
@@ -238,17 +250,14 @@ class DriveSystem(object):
         the robot should move until it is between 6.8 and 7.4 inches
         from the object.
         """
-        #
-        # while True:
-        #     x = self.sensor_system.infrared_senseor.get_distance()
-        #     if x>delta_inches:
-        #         self.go(speed,speed)
-        #     elif x<delta_inches:
-        #         self.go(-speed,-speed)
-        #     else:
-        #         self.stop()
-        #         break
-        #
+
+        while True:
+            x = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            if x>inches+delta:
+                self.go(speed,speed)
+            elif x<inches-delta:
+                self.go(-speed,-speed)
+
 
 
 
@@ -407,6 +416,7 @@ class SensorSystem(object):
 
 
 
+
 ###############################################################################
 #    SoundSystem
 ###############################################################################
@@ -422,6 +432,15 @@ class SoundSystem(object):
         self.speech_maker = SpeechMaker()
         self.song_maker = SongMaker()
 
+    def beep_for_n_time(self,n):
+        for i in range(n):
+            self.beeper.beep()
+    def play_a_tone_for_a_givien_frenquency(self,fren,dur):
+        self.tone_maker.play_tone(fren,dur)
+
+    def say_a_phrase(self,n):
+        self.speech_maker.speak(n)
+        
 
 ###############################################################################
 #    LEDSystem
