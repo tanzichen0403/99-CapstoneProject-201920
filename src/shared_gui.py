@@ -60,6 +60,7 @@ def get_teleoperation_frame(window, mqtt_sender):
     right_button.grid(row=4, column=2)
     backward_button.grid(row=5, column=1)
 
+
     # Set the button callbacks:
     forward_button["command"] = lambda: handle_forward(
         left_speed_entry, right_speed_entry, mqtt_sender)
@@ -390,10 +391,15 @@ def handle_go_straight_for_inches_using_encoder(inches,speed, mqtt_sender):
 
 def handle_beep(n,mqtt_sender):
     ""
+    print('beep')
+    mqtt_sender.send_message('beep', [n.get()])
 def handle_tone(fren,Dur,mqtt_sender):
     ""
+    print('make a tone')
+    mqtt_sender.send_message('tone', [fren.get(),Dur.get()])
 def say_a_pharse(x):
     ""
+    
 ###############################################################################
 # Handlers for Buttons in the Control frame.
 ###############################################################################
@@ -402,9 +408,8 @@ def handle_quit(mqtt_sender):
     Tell the robot's program to stop its loop (and hence quit).
       :type  mqtt_sender:  com.MqttClient
     """
-    print('exit')
-    handle_quit(mqtt_sender)
-    exit()
+    print('quit')
+    mqtt_sender.send_message('quit')
 
 def handle_exit(mqtt_sender):
     """
@@ -412,3 +417,6 @@ def handle_exit(mqtt_sender):
     Then exit this program.
       :type mqtt_sender: com.MqttClient
     """
+    print('exit')
+    handle_quit(mqtt_sender)
+    exit()
