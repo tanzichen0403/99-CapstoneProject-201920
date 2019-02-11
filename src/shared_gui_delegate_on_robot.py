@@ -59,3 +59,6 @@ class DelegateThatReceives(object):
 
     def play_a_tone_for_a_givien_frenquency(self, freq, dur):
         self.robot.sound_system.play_a_tone_for_a_givien_frenquency(int(freq),int(dur))
+
+    def speaker(self, x):
+        self.robot.sound_system.say_a_phrase(str(x))

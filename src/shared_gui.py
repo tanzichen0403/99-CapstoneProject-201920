@@ -267,7 +267,7 @@ def get_soundsystem_frame(window, mqtt_sender):
     # Set the button callbacks:
     beeper_button["command"] = lambda: handle_beep(beeper_entry,mqtt_sender)
     Tone_button["command"] = lambda: handle_tone(fren_entry,Dur_entry,mqtt_sender)
-    Phrase_button["command"] = lambda: say_a_pharse(Phrase_entry)
+    Phrase_button["command"] = lambda: say_a_pharse(Phrase_entry, mqtt_sender)
 
     return frame
 ###############################################################################
@@ -399,8 +399,10 @@ def handle_tone(fren,dur, mqtt_sender):
     print('play_a_tone_for_a_givien_frenquency')
     mqtt_sender.send_message('play_a_tone_for_a_givien_frenquency', [fren.get(),dur.get()])
 
-def say_a_pharse(x):
+def say_a_pharse(x, mqtt_sender):
     ""
+    print('say_a_phrase')
+    mqtt_sender.send_message('speaker', [x.get()])
 
 ###############################################################################
 # Handlers for Buttons in the Control frame.
