@@ -28,10 +28,10 @@ def real_thing():
     delegate_that_receives=shared_gui_delegate_on_robot.DegelateThatReceives(robot)
     mqtt_receiver=com.MqttClient(delegate_that_receives)
     mqtt_receiver.connect_to_pc()
-
     while True:
         time.sleep(0.01)
-
+        if delegate.is_time_to_stop:
+            break
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
