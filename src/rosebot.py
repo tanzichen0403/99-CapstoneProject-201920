@@ -182,7 +182,7 @@ class DriveSystem(object):
         # -------------------------------------------------------------------------
         self.go(speed,speed)
         while True:
-            x=self.sensor_system.color_sensor.color
+            x=self.sensor_system.color_sensor.
 
 
     def go_straight_until_color_is_not(self, color, speed):
@@ -348,8 +348,6 @@ class ArmAndClaw(object):
                 self.motor.turn_off()
                 self.motor.reset_position()
                 break
-
-
 
     def move_arm_to_position(self, desired_arm_position):
         """
