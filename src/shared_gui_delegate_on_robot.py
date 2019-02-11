@@ -12,6 +12,7 @@ class DelegateThatReceives(object):
     def __init__(self, robot):
         """ :type robot: rosebot.Robot"""
         self.robot = robot
+        self.is_time_to_stop = False
 
     def forward(self, left_wheel_speed, right_wheel_speed):
         self.robot.drive_system.go(int(left_wheel_speed), int(right_wheel_speed))
@@ -48,3 +49,15 @@ class DelegateThatReceives(object):
 
     def go_straight_for_inches_using_encoder(self, inches, speed):
         self.robot.drive_system.go_straight_for_inches_using_encoder(int(inches), int(speed))
+
+    def quit(self):
+        print('got quit')
+        self.is_time_to_stop = True
+
+    def beep(self, n):
+        print('got beep')
+        for _ in range(int(n)):
+            self.robot.sound_system.beeper.beep().wait()
+
+    def tone(self, freq, dur):
+        self.tone(int(freq),int(dur))
