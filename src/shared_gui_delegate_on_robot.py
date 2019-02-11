@@ -55,9 +55,7 @@ class DelegateThatReceives(object):
         self.is_time_to_stop = True
 
     def beep(self, n):
-        print('got beep')
-        for _ in range(int(n)):
-            self.robot.sound_system.beeper.beep().wait()
+        self.robot.sound_system.beep_for_n_time(int(n))
 
-    def tone(self, freq, dur):
-        self.tone(int(freq),int(dur))
+    def play_a_tone_for_a_givien_frenquency(self, freq, dur):
+        self.robot.sound_system.play_a_tone_for_a_givien_frenquency(int(freq),int(dur))
