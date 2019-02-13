@@ -65,9 +65,10 @@ class DelegateThatReceives(object):
 
     def beep_and_run(self, init,rate, speed):
         ""
-        self.robot.m1_beep_while_apporach(self,init,rate,speed)
+        self.robot.m1_beep_while_apporach(init,rate,speed)
 
     def trace_color(self, color,speed):
         ""
-    def line_following(self,speed):
+    def line_followingd(self,speed):
+        self.robot.m1_Bang_bang_control(speed)
         ""

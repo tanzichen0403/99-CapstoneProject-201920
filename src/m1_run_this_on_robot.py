@@ -30,11 +30,13 @@ def run_test_calibrate_arm():
     robot.arm_and_claw.calibrate_arm()
 
 def real_thing():
+    print("aaa")
     robot = rosebot.RoseBot()
+    print('ccc')
     delegate_that_receives = shared_gui_delegate_on_robot.DelegateThatReceives(robot)
     mqtt_receiver = com.MqttClient(delegate_that_receives)
     mqtt_receiver.connect_to_pc()
-
+    print('bbbb')
     while True:
         time.sleep(0.01)
         if delegate_that_receives.is_time_to_stop:

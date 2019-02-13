@@ -40,22 +40,33 @@ class RoseBot(object):
     def m1_beep_while_apporach(self,ini,rate,speed):
         self.drive_system.go(speed,speed)
         while True:
-            x=self.sensor_system.ir_proximity_sensor.get_distance_in_inches()/10
-            rate=(ini*rate/x)
-            self.sound_system.beeper.beep()
-            time.sleep(1/rate)
-            if x<2:
+            x = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            print(x,"inches")
+
+            if x<1:
+                print('2')
+                self.drive_system.stop()
                 break
+            x=int(self.sensor_system.ir_proximity_sensor.get_distance_in_inches())
+            rat=(x/(ini*rate*4))
+            print(rat)
+            self.sound_system.beeper.beep()
+            time.sleep(rat)
+
+
+
         self.drive_system.stop()
     def m1_Bang_bang_control(self,speed):
         x=self.sensor_system.color_sensor.get_reflected_light_intensity()
         while True:
             self.drive_system.go(speed,speed)
+
             y=self.sensor_system.color_sensor.get_reflected_light_intensity()
             if y>x:
-                self.drive_system.right(20,20)
+                self.drive_system.right(30,0)
             if y<x:
-                self.drive_system.left()
+                self.drive_system.left(0,30)
+
 
 
 
@@ -433,7 +444,7 @@ class SensorSystem(object):
         self.touch_sensor = TouchSensor(1)
         self.color_sensor = ColorSensor(3)
         self.ir_proximity_sensor = InfraredProximitySensor(4)
-        self.camera = Camera()
+        # self.camera = Camera()
         # self.ir_beacon_sensor = InfraredBeaconSensor(4)
         # self.beacon_system =
         # self.display_system =
@@ -691,8 +702,8 @@ class InfraredProximitySensor(object):
         in inches, where about 39.37 inches (which is 100 cm) means no object
         is within its field of vision.
         """
-        inches_per_cm = 2.54
-        return 48 * inches_per_cm * self.get_distance() / 100
+        cm_per_in = 2.54
+        return 48 / cm_per_in * self.get_distance() / 100
 
 
 ###############################################################################
