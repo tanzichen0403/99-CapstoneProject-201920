@@ -9,7 +9,6 @@ import rosebot
 import mqtt_remote_method_calls as com
 import time
 import shared_gui_delegate_on_robot
-
 def main():
     """
     This code, which must run on the EV3 ROBOT:
@@ -32,6 +31,9 @@ def run_test_calibrate_arm():
 def real_thing():
     print("aaa")
     robot = rosebot.RoseBot()
+    robot.sound_system.speech_maker.speak(
+            'welcome home sir, I am jarvis!')
+
     print('ccc')
     delegate_that_receives = shared_gui_delegate_on_robot.DelegateThatReceives(robot)
     mqtt_receiver = com.MqttClient(delegate_that_receives)

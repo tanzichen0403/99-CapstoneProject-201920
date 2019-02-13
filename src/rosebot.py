@@ -67,6 +67,10 @@ class RoseBot(object):
             if y<x:
                 self.drive_system.left(0,30)
 
+            z=self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            if z<1:
+                self.drive_system.stop()
+                break
 
 
 
@@ -364,7 +368,7 @@ class ArmAndClaw(object):
         """
         self.touch_sensor = touch_sensor
         self.motor = Motor('A', motor_type='medium')
-        self.calibrate_arm()
+
 
     def raise_arm(self):
         """ Raises the Arm until its touch sensor is pressed. """
