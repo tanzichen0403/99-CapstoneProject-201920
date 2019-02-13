@@ -330,6 +330,35 @@ def m1_personal_frame(window, mqtt_sender):
     line_follow_button["command"] = lambda: line_following(speed_entry,mqtt_sender)
 
     return frame
+
+def get_camera_frame(window, mqtt_sender):
+    # Construct the frame to return:
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Camera frame")
+    color_label = ttk.Label(frame, text="Tracing color:")
+    color_entry = ttk.Entry(frame, width=8)
+    speed_label = ttk.Label(frame, text="Enter a speed:")
+    speed_entry = ttk.Entry(frame, width=8)
+
+    m3_trace_color_button = ttk.Button(frame, text="Trace color")
+
+    # Grid the widgets:
+    frame_label.grid(row=0, column=1)
+    color_label.grid(row=1, column=0)
+    color_entry.grid(row=1, column=1)
+    m3_trace_color_button.grid(row=2, column=2)
+
+    speed_label.grid(row=2, column=0)
+    speed_entry.grid(row=2, column=1)
+
+    # Set the Button callbacks:
+    m3_trace_color_button["command"] = lambda: handle_trace_camera_color(color, speed, mqtt_sender)
+
+    return frame
+
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
@@ -492,3 +521,6 @@ def trace_color(color,speed,mqtt):
 
 def line_following(speed,mqtt):
     ""
+
+def handle_trace_camera_color(color, speed, mqtt_sender):
+    pass
