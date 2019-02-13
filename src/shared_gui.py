@@ -487,10 +487,10 @@ def handle_exit(mqtt_sender):
 def beep_and_run(init_fren,rate,speed,mqtt):
     ""
     print('beep and run')
-    # mqtt.send_message('beep_and_run',[int(init_fren.get()),int(rate.get()),int(speed.get())])
+    mqtt.send_message('beep_and_run',[int(init_fren.get()),int(rate.get()),int(speed.get())])
 def trace_color(color,speed,mqtt):
     ""
 
 def line_following(speed,mqtt):
     ""
-    # mqtt.send_message('line_followingd',[int(speed.get())])
+    mqtt.send_message('line_followingd',[int(speed.get())])
