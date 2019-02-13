@@ -62,3 +62,12 @@ class DelegateThatReceives(object):
 
     def speaker(self, x):
         self.robot.sound_system.say_a_phrase(str(x))
+
+    def beep_and_run(self, init,rate, speed):
+        ""
+        self.robot.m1_beep_while_apporach(self,init,rate,speed)
+
+    def trace_color(self, color,speed):
+        ""
+    def line_following(self,speed):
+        ""

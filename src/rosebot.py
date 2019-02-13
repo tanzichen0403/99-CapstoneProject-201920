@@ -37,6 +37,27 @@ class RoseBot(object):
         self.arm_and_claw = ArmAndClaw(self.sensor_system.touch_sensor)
         self.beacon_system = BeaconSystem()
         self.display_system = DisplaySystem()
+    def m1_beep_while_apporach(self,ini,rate,speed):
+        self.drive_system.go(speed,speed)
+        while True:
+            x=self.sensor_system.ir_proximity_sensor.get_distance_in_inches()/10
+            rate=(ini*rate/x)
+            self.sound_system.beeper.beep()
+            time.sleep(1/rate)
+            if x<2:
+                break
+        self.drive_system.stop()
+    def m1_Bang_bang_control(self,speed):
+        x=self.sensor_system.color_sensor.get_reflected_light_intensity()
+        while True:
+            self.drive_system.go(speed,speed)
+            y=self.sensor_system.color_sensor.get_reflected_light_intensity()
+            if y>x:
+                self.drive_system.right(20,20)
+            if y<x:
+                self.drive_system.left()
+
+
 
 
 
@@ -438,7 +459,7 @@ class SoundSystem(object):
     def beep_for_n_time(self,n):
         for i in range(n):
             self.beeper.beep()
-            time.sleep(0.1)
+            time.sleep(1)
 
     def play_a_tone_for_a_givien_frenquency(self,fren,dur):
         self.tone_maker.play_tone(fren,dur)
