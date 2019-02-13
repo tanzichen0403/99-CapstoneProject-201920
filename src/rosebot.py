@@ -74,8 +74,6 @@ class RoseBot(object):
 
 
 
-
-
 ###############################################################################
 #    DriveSystem
 ###############################################################################
@@ -346,6 +344,31 @@ class DriveSystem(object):
         Requires that the user train the camera on the color of the object.
         """
 
+    def m3_trace_color_using_camera(self):
+        while True:
+            blob = self.sensor_system.camera.get_biggest_blob()
+            print(blob)
+
+            if self.sensor_system.camera.get_biggest_blob().get_area() < 600:
+                if blob.center.x > 150 and blob.center.x < 170:
+                    self.go(20, 20)
+                if blob.center.x < 150:
+                    self.left(20, 20)
+                elif blob.center.x > 170:
+                    self.right(20, 20)
+            elif self.sensor_system.camera.get_biggest_blob().get_area() > 1600:
+                if blob.center.x > 150 and blob.center.x < 170:
+                    self.go(-20, -20)
+                if blob.center.x < 150:
+                    self.left(20, 20)
+                elif blob.center.x > 170:
+                    self.right(20, 20)
+                if 1500 < self.sensor_system.camera.get_biggest_blob().get_area() < 1600:
+                    self.stop()
+                    break
+
+
+
 
 ###############################################################################
 #    ArmAndClaw
@@ -448,7 +471,7 @@ class SensorSystem(object):
         self.touch_sensor = TouchSensor(1)
         self.color_sensor = ColorSensor(3)
         self.ir_proximity_sensor = InfraredProximitySensor(4)
-        # self.camera = Camera()
+        self.camera = Camera()
         # self.ir_beacon_sensor = InfraredBeaconSensor(4)
         # self.beacon_system =
         # self.display_system =

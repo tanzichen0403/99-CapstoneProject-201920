@@ -18,7 +18,8 @@ def main():
     """
     # run_test_arm()
     # run_test_calibrate_arm()
-    real_thing()
+    # real_thing()
+    run_test_camera()
 
 
 def run_test_arm():
@@ -39,6 +40,11 @@ def real_thing():
         time.sleep(0.01)
         if delegate_that_receives.is_time_to_stop:
             break
+
+def run_test_camera():
+    robot = rosebot.RoseBot()
+    robot.drive_system.m3_trace_color_using_camera()
+
 
 
 
