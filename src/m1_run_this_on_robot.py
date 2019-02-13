@@ -32,7 +32,8 @@ def real_thing():
     print("aaa")
     robot = rosebot.RoseBot()
     robot.sound_system.speech_maker.speak(
-            'welcome home sir, I am jarvis!')
+            'welcome home sir, I am jarvis! Just give a second to calibrate myself')
+    robot.arm_and_claw.calibrate_arm()
 
     print('ccc')
     delegate_that_receives = shared_gui_delegate_on_robot.DelegateThatReceives(robot)
