@@ -284,6 +284,15 @@ def m1_personal_frame(window, mqtt_sender):
 def m1_carmer_frame(window,mqtt_sender):
     camera=m1.m1_feature_10(window,mqtt_sender)
     return camera
+
+def m3_personal_frame(window, mqtt_sender):
+    m1.m1_personal_frame(window, mqtt_sender)
+    frame = m1.m1_personal_frame(window, mqtt_sender)
+    return frame
+
+def m3_carmer_frame(window,mqtt_sender):
+    camera=m1.m1_feature_10(window,mqtt_sender)
+    return camera
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
