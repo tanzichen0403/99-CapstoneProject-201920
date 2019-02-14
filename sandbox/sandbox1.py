@@ -192,3 +192,117 @@ import time
 #     Phrase_button["command"] = lambda: say_a_pharse(Phrase_entry)
 #
 #     return frame
+"""
+Example showing for tkinter and ttk how to:
+  -- 1. BIND callback functions (event-handlers) to KEYBOARD EVENTs.
+  -- 2. RESPOND to KEYBOARD events.
+
+There is LOTS more you can do with Events beyond what is shown here.
+See the next module for more, and for all (or at least most) of the
+details, see Section 30 of:
+  tkinterReference-NewMexicoTech.pdf
+
+in the Graphics section of the Resources web page for this course.
+That document is also available in html form at:
+  http://infohost.nmt.edu/tcc/help/pubs/tkinter/events.html
+
+Authors: David Mutchler and his colleagues
+         at Rose-Hulman Institute of Technology.
+"""
+
+import tkinter
+from tkinter import ttk
+
+
+def key_board_control_frame():
+    # Make root, frame and 3 buttons with callbacks.
+    root = tkinter.Tk()
+
+    main_frame = ttk.Frame(root, padding=20)
+    main_frame.grid()
+    label1=ttk.Label(main_frame,text='In this part')
+    label2 = ttk.Label(main_frame, text='You can use your key board to control the robot')
+    label3=ttk.Label(main_frame,text='W-Forward')
+    label4 = ttk.Label(main_frame, text='S-Backward')
+    label5 = ttk.Label(main_frame, text='A-Turn Left')
+    label6 = ttk.Label(main_frame, text='D-Turn Right')
+    label1.grid(row=0,column=2,sticky='n')
+    label2.grid(row=1,column=2,sticky='n')
+    label3.grid(row=2,column=2,sticky='n')
+    label5.grid(row=3,column=0,sticky='w')
+    label6.grid(row=3,column=4,sticky='e')
+    label4.grid(row=4,column=2,sticky='n')
+
+
+    close_window_button = ttk.Button(main_frame, text='Close this window')
+    close_window_button.grid(column=2)
+
+    close_window_button['command'] = lambda: key_close_window(root)
+
+    # root.bind_all('<KeyPress>', lambda event: pressed_a_key(event))
+    # root.bind_all('<KeyRelease>', lambda event: released_a_key(event))
+
+    root.bind_all('<Key-W>', lambda event: key_go_forward(event))
+    root.bind_all('<Key-S>', lambda event: key_backward(event))
+    root.bind_all('<Key-A>', lambda event: key_turn_left(event))
+    root.bind_all('<Key-D>', lambda event: key_turn_right(event))
+    root.bind_all('<Key-w>', lambda event: key_go_forward(event))
+    root.bind_all('<Key-s>', lambda event: key_backward(event))
+    root.bind_all('<Key-a>', lambda event: key_turn_left(event))
+    root.bind_all('<Key-d>', lambda event: key_turn_right(event))
+
+    root.mainloop()
+
+
+
+
+def key_go_forward(event=None):
+    # Fancier version that allows EITHER key OR button presses.
+    # The former provides the event, the latter does not.
+    # It is UN-likely that you will want this fancier version.
+    # Instead, use the SIMPLER version per   go_left.
+    if event is None:
+        print('Button press: ', end='')
+    else:
+        print('You pressed the ' + event.keysym + ' key: ', end='')
+    print('Go forward')
+
+def key_backward(event=None):
+    # Fancier version that allows EITHER key OR button presses.
+    # The former provides the event, the latter does not.
+    # It is UN-likely that you will want this fancier version.
+    # Instead, use the SIMPLER version per   go_left.
+    if event is None:
+        print('Button press: ', end='')
+    else:
+        print('You pressed the ' + event.keysym + ' key: ', end='')
+    print('Backward')
+
+def key_turn_left(event=None):
+    # Fancier version that allows EITHER key OR button presses.
+    # The former provides the event, the latter does not.
+    # It is UN-likely that you will want this fancier version.
+    # Instead, use the SIMPLER version per   go_left.
+    if event is None:
+        print('Button press: ', end='')
+    else:
+        print('You pressed the ' + event.keysym + ' key: ', end='')
+    print('turn left')
+def key_turn_right(event=None):
+    # Fancier version that allows EITHER key OR button presses.
+    # The former provides the event, the latter does not.
+    # It is UN-likely that you will want this fancier version.
+    # Instead, use the SIMPLER version per   go_left.
+    if event is None:
+        print('Button press: ', end='')
+    else:
+        print('You pressed the ' + event.keysym + ' key: ', end='')
+    print('Turn right')
+
+def key_close_window(root):
+    root.destroy()
+
+# ----------------------------------------------------------------------
+# Calls  main  to start the ball rolling.
+# ----------------------------------------------------------------------
+key_board_control_frame()
