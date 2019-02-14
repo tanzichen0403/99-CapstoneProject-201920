@@ -230,6 +230,7 @@ def key_board_control_frame():
     label2.grid(row=1,column=2,sticky='n')
     label3.grid(row=2,column=2,sticky='n')
     label5.grid(row=3,column=0,sticky='w')
+    
     label6.grid(row=3,column=4,sticky='e')
     label4.grid(row=4,column=2,sticky='n')
 
