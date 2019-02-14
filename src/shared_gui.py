@@ -449,12 +449,15 @@ def handle_exit(mqtt_sender):
 
 def beep_and_run(init_fren, rate, speed, mqtt):
     ""
-    m1.beep_and_run(init_fren, rate, speed, mqtt)
+    mqtt.send_message('beep_and_run',[int(init_fren.get()),int(rate.get()),int(speed.get)])
+    # m1.beep_and_run(init_fren, rate, speed, mqtt)
 
 
 def line_following(speed, mqtt):
     ""
-    m1.line_following(speed, mqtt)
+    mqtt.send_message('line_followingd',[int(speed.get())])
+    # m1.line_following(speed, mqtt)
 
 def begin_trace_the_item(forward_speed_entry,spin_speed_entry,mqtt):
-    m1.begin_trace_the_item(forward_speed_entry,spin_speed_entry,mqtt)
+    mqtt.send_message('trace_item',[int(forward_speed_entry.get()),int(spin_speed_entry.get())])
+    # m1.begin_trace_the_item(forward_speed_entry,spin_speed_entry,mqtt)
