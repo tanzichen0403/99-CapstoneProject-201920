@@ -19,7 +19,7 @@ def main():
     # run_test_arm()
     # run_test_calibrate_arm()
     # real_thing()
-    run_test_camera(50,20)
+    run_test_camera(50,30)
 
 
 def run_test_arm():
@@ -45,7 +45,7 @@ def run_test_camera(speed1, speed2):
     robot = rosebot.RoseBot()
     a = speed1
     b = speed2
-    robot.drive_system.m3_trace_color_using_camera(a,b)
+    robot.m1_carmra(a,b)
 
 
 

@@ -71,6 +71,9 @@ class RoseBot(object):
             if z<1:
                 self.drive_system.stop()
                 break
+    def m1_carmra(self,forward,dir):
+        self.drive_system.m3_trace_color_using_camera(forward,dir)
+        self.arm_and_claw.raise_arm()
 
 
 
@@ -104,6 +107,7 @@ class DriveSystem(object):
         self.sensor_system = sensor_system
         self.left_motor = Motor('B')
         self.right_motor = Motor('C')
+        self.sound_system=SoundSystem()
 
         self.wheel_circumference = 1.3 * math.pi
 
@@ -123,13 +127,13 @@ class DriveSystem(object):
     def left(self,left,right):
         self.left_motor.turn_on(-left)
         self.right_motor.turn_on(right)
-        time.sleep(0.5)
+        time.sleep(0.2)
         self.stop()
 
     def right(self,left,right):
         self.left_motor.turn_on(left)
         self.right_motor.turn_on(-right)
-        time.sleep(0.5)
+        time.sleep(0.2)
         self.stop()
 
     def go_straight_for_seconds(self, seconds, speed):
@@ -346,26 +350,35 @@ class DriveSystem(object):
 
     def m3_trace_color_using_camera(self,speed,directionspeed):
         while True:
+            x=self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
             blob = self.sensor_system.camera.get_biggest_blob()
             print(blob)
+            print(x, "inches")
 
-            if self.sensor_system.camera.get_biggest_blob().get_area() < 600:
-                if blob.center.x > 150 and blob.center.x < 170:
+            if blob.center.x > 180 and blob.center.x < 230:
                     self.go(speed, speed)
-                if blob.center.x < 150:
-                    self.left(directionspeed, directionspeed)
-                elif blob.center.x > 170:
-                    self.right(directionspeed, directionspeed)
-            elif self.sensor_system.camera.get_biggest_blob().get_area() > 1600:
-                if blob.center.x > 150 and blob.center.x < 170:
-                    self.go(-speed,-speed)
-                if blob.center.x < 150:
-                    self.left(directionspeed, directionspeed)
-                elif blob.center.x > 170:
-                    self.right(directionspeed, directionspeed)
-                if 1500 < self.sensor_system.camera.get_biggest_blob().get_area() < 1600:
-                    self.stop()
-                    break
+                    if x < 1:
+                        print('2')
+                        self.stop()
+                        break
+                    x = int(self.sensor_system.ir_proximity_sensor.get_distance_in_inches())
+                    rat = (x / (1 * 1 * 4))
+                    print(rat)
+                    self.sound_system.beeper.beep()
+                    time.sleep(rat)
+                    print("the robot is on the center")
+            elif blob.center.x < 180 and blob.center.x >0:
+                    self.go(0,abs(directionspeed))
+                    print('the robot is on the left')
+            elif blob.center.x > 230 and blob.center.x < 320:
+                    self.go(abs(directionspeed),0)
+                    print('the robot is on the right')
+            else:
+                    self.right(directionspeed,directionspeed)
+                    print("no object is detect")
+
+
+
 
 
 
