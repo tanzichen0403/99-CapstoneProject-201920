@@ -19,7 +19,7 @@ def main():
     # run_test_arm()
     # run_test_calibrate_arm()
     # real_thing()
-    run_test_camera()
+    run_test_camera(50,20)
 
 
 def run_test_arm():

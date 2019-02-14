@@ -344,25 +344,25 @@ class DriveSystem(object):
         Requires that the user train the camera on the color of the object.
         """
 
-    def m3_trace_color_using_camera(self):
+    def m3_trace_color_using_camera(self,speed,directionspeed):
         while True:
             blob = self.sensor_system.camera.get_biggest_blob()
             print(blob)
 
             if self.sensor_system.camera.get_biggest_blob().get_area() < 600:
                 if blob.center.x > 150 and blob.center.x < 170:
-                    self.go(20, 20)
+                    self.go(speed, speed)
                 if blob.center.x < 150:
-                    self.left(20, 20)
+                    self.left(directionspeed, directionspeed)
                 elif blob.center.x > 170:
-                    self.right(20, 20)
+                    self.right(directionspeed, directionspeed)
             elif self.sensor_system.camera.get_biggest_blob().get_area() > 1600:
                 if blob.center.x > 150 and blob.center.x < 170:
-                    self.go(-20, -20)
+                    self.go(-speed,-speed)
                 if blob.center.x < 150:
-                    self.left(20, 20)
+                    self.left(directionspeed, directionspeed)
                 elif blob.center.x > 170:
-                    self.right(20, 20)
+                    self.right(directionspeed, directionspeed)
                 if 1500 < self.sensor_system.camera.get_biggest_blob().get_area() < 1600:
                     self.stop()
                     break

@@ -8,6 +8,7 @@
 """
 
 
+
 class DelegateThatReceives(object):
     def __init__(self, robot):
         """ :type robot: rosebot.Robot"""
