@@ -70,6 +70,7 @@ class DelegateThatReceives(object):
 
     def trace_item(self, forward_speed,spin_speed):
         ""
+        self.robot.m1_carmra(self,forward_speed,spin_speed)
     def line_followingd(self,speed):
         self.robot.m1_Bang_bang_control(speed)
         ""
