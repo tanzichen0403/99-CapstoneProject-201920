@@ -130,65 +130,65 @@ import time
 #     Phrase_button["command"] = lambda: say_a_pharse(Phrase_entry)
 #
 #     return frame
-
-def get_soundsystem_frame(window, mqtt_sender):
-    """
-    Constructs and returns a frame on the given window, where the frame
-    has Entry and Button objects that control the EV3 robot's motion
-    by passing messages using the given MQTT Sender.
-      :type  window:       ttk.Frame | ttk.Toplevel
-      :type  mqtt_sender:  com.MqttClient
-    """
-    # Construct the frame to return:
-    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
-    frame.grid()
-
-    # Construct the widgets on the frame:
-    frame_label = ttk.Label(frame, text="personal control pannel for m1")
-
-    beeper_label = ttk.Label(frame, text="How many times you want to beep")
-    beeper_entry = ttk.Entry(frame, width=8)
-    beeper_entry.insert(0, "10")
-
-    fren_label = ttk.Label(frame, text="Which frequency do you want to play?")
-    fren_entry = ttk.Entry(frame, width=8)
-    fren_entry.insert(0, "1000")
-
-    Dur_label = ttk.Label(frame, text="How long do you want to play")
-    Dur_entry = ttk.Entry(frame, width=8)
-    Dur_entry.insert(0, "10")
-
-    Phrase_label = ttk.Label(frame, text="What do you want to say?")
-    Phrase_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
-    Phrase_entry.insert(0, "Hey Jarvis")
-
-    beeper_button = ttk.Button(frame, text="Go for seconds")
-    Tone_button = ttk.Button(frame, text="Go for inches")
-    Phrase_button = ttk.Button(frame, text='Go for inchers(encoder)')
-
-
-    #
-    frame_label.grid(row=0, column=1)
-
-    beeper_label.grid(row=1, column=0)
-    beeper_entry.grid(row=2, column=0)
-    beeper_button.grid(row=2,column=0)
-
-    fren_label.grid(row=3, column=0)
-    fren_entry.grid(row=4, column=0)
-    Dur_label.grid(row=5, column=0)
-    Dur_entry.grid(row=6, column=0)
-    Tone_button.grid(row=7, column=0)
-
-    Phrase_label.grid(row=8, column=0)
-    Phrase_entry.grid(row=9, column=0)
-    Phrase_button.grid(row=9, column=2)
-
-
-
-    # Set the button callbacks:
-    beeper_button["command"] = lambda: handle_beep(beeper_entry,mqtt_sender)
-    Tone_button["command"] = lambda: handle_tone(fren_entry,Dur_entry,mqtt_sender)
-    Phrase_button["command"] = lambda: say_a_pharse(Phrase_entry)
-
-    return frame
+#
+# def get_soundsystem_frame(window, mqtt_sender):
+#     """
+#     Constructs and returns a frame on the given window, where the frame
+#     has Entry and Button objects that control the EV3 robot's motion
+#     by passing messages using the given MQTT Sender.
+#       :type  window:       ttk.Frame | ttk.Toplevel
+#       :type  mqtt_sender:  com.MqttClient
+#     """
+#     # Construct the frame to return:
+#     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+#     frame.grid()
+#
+#     # Construct the widgets on the frame:
+#     frame_label = ttk.Label(frame, text="personal control pannel for m1")
+#
+#     beeper_label = ttk.Label(frame, text="How many times you want to beep")
+#     beeper_entry = ttk.Entry(frame, width=8)
+#     beeper_entry.insert(0, "10")
+#
+#     fren_label = ttk.Label(frame, text="Which frequency do you want to play?")
+#     fren_entry = ttk.Entry(frame, width=8)
+#     fren_entry.insert(0, "1000")
+#
+#     Dur_label = ttk.Label(frame, text="How long do you want to play")
+#     Dur_entry = ttk.Entry(frame, width=8)
+#     Dur_entry.insert(0, "10")
+#
+#     Phrase_label = ttk.Label(frame, text="What do you want to say?")
+#     Phrase_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
+#     Phrase_entry.insert(0, "Hey Jarvis")
+#
+#     beeper_button = ttk.Button(frame, text="Go for seconds")
+#     Tone_button = ttk.Button(frame, text="Go for inches")
+#     Phrase_button = ttk.Button(frame, text='Go for inchers(encoder)')
+#
+#
+#     #
+#     frame_label.grid(row=0, column=1)
+#
+#     beeper_label.grid(row=1, column=0)
+#     beeper_entry.grid(row=2, column=0)
+#     beeper_button.grid(row=2,column=0)
+#
+#     fren_label.grid(row=3, column=0)
+#     fren_entry.grid(row=4, column=0)
+#     Dur_label.grid(row=5, column=0)
+#     Dur_entry.grid(row=6, column=0)
+#     Tone_button.grid(row=7, column=0)
+#
+#     Phrase_label.grid(row=8, column=0)
+#     Phrase_entry.grid(row=9, column=0)
+#     Phrase_button.grid(row=9, column=2)
+#
+#
+#
+#     # Set the button callbacks:
+#     beeper_button["command"] = lambda: handle_beep(beeper_entry,mqtt_sender)
+#     Tone_button["command"] = lambda: handle_tone(fren_entry,Dur_entry,mqtt_sender)
+#     Phrase_button["command"] = lambda: say_a_pharse(Phrase_entry)
+#
+#     return frame

@@ -245,7 +245,7 @@ def get_soundsystem_frame(window, mqtt_sender):
     Phrase_button = ttk.Button(frame, text='Say it!')
 
     #
-    frame_label.grid(row=0, column=1)
+    frame_label.grid(row=0, column=1,sticky='w')
 
     beeper_label.grid(row=1, column=0, sticky='w')
     beeper_entry.grid(row=2, column=0, sticky='w')
@@ -281,7 +281,9 @@ def m1_personal_frame(window, mqtt_sender):
     frame = m1.m1_personal_frame(window, mqtt_sender)
     return frame
 
-
+def m1_carmer_frame(window,mqtt_sender):
+    camera=m1.m1_feature_10(window,mqtt_sender)
+    return camera
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
@@ -450,11 +452,9 @@ def beep_and_run(init_fren, rate, speed, mqtt):
     m1.beep_and_run(init_fren, rate, speed, mqtt)
 
 
-def trace_color(speed, mqtt):
-    ""
-    m1.trace_color(speed, mqtt)
-
-
 def line_following(speed, mqtt):
     ""
     m1.line_following(speed, mqtt)
+
+def begin_trace_the_item(forward_speed_entry,spin_speed_entry,mqtt):
+    m1.begin_trace_the_item(forward_speed_entry,spin_speed_entry,mqtt)

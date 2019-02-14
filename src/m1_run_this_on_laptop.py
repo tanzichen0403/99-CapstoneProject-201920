@@ -46,12 +46,12 @@ def main():
     # Frames that are particular to my individual contributions to the project.
     # -------------------------------------------------------------------------
     # TODO: Implement and call get_my_frames(...)
-    teleop_frame,arm_frame,control_frame,x,y,z=get_shared_frames(main_frame,mqtt_send)
+    teleop_frame,arm_frame,control_frame,drivesystem_frame,soundsystem_frame,m1_personal_frame,m1_camera_frame=get_shared_frames(main_frame,mqtt_send)
 
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame,arm_frame,control_frame,x,y,z)
+    grid_frames(teleop_frame,arm_frame,control_frame,drivesystem_frame,soundsystem_frame,m1_personal_frame,m1_camera_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -63,20 +63,22 @@ def get_shared_frames(main_frame, mqtt_sender):
     teleop_frame=shared_gui.get_teleoperation_frame(main_frame,mqtt_sender)
     arm_frame=shared_gui.get_arm_frame(main_frame,mqtt_sender)
     color_arm=shared_gui.get_control_frame(main_frame,mqtt_sender)
-    x=shared_gui.get_drivesystem_frame(main_frame, mqtt_sender)
-    y=shared_gui.get_soundsystem_frame(main_frame,mqtt_sender)
-    z=shared_gui.m1_personal_frame(main_frame,mqtt_sender)
-    return teleop_frame,arm_frame,color_arm,x,y,z
+    drivesystem_frame=shared_gui.get_drivesystem_frame(main_frame, mqtt_sender)
+    soundsystem_frame=shared_gui.get_soundsystem_frame(main_frame,mqtt_sender)
+    m1_personal_frame=shared_gui.m1_personal_frame(main_frame,mqtt_sender)
+    m1_camera_frame=shared_gui.m1_carmer_frame(main_frame, mqtt_sender)
+    return teleop_frame,arm_frame,color_arm,drivesystem_frame,soundsystem_frame,m1_personal_frame,m1_camera_frame
     pass
 
 
-def grid_frames(teleop_frame, arm_frame, control_frame,x,y,z):
+def grid_frames(teleop_frame, arm_frame, control_frame,drivesystem_frame,soundsystem_frame,m1_personal_frame,m1_camera_frame):
     teleop_frame.grid(row=0,column=0)
     arm_frame.grid(row=1,column=0)
     control_frame.grid(row=2,column=0)
-    x.grid(row=3,column=0)
-    y.grid(row=0,column=1)
-    z.grid(row=1,column=1)
+    drivesystem_frame.grid(row=3,column=0)
+    soundsystem_frame.grid(row=0,column=1)
+    m1_personal_frame.grid(row=1,column=1)
+    m1_camera_frame.grid(row=2,column=1)
     pass
 
 def get_personal_design_frame(window,mqtt_sendr):
