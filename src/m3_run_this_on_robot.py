@@ -41,9 +41,11 @@ def real_thing():
         if delegate_that_receives.is_time_to_stop:
             break
 
-def run_test_camera():
+def run_test_camera(speed1, speed2):
     robot = rosebot.RoseBot()
-    robot.drive_system.m3_trace_color_using_camera()
+    a = speed1
+    b = speed2
+    robot.drive_system.m3_trace_color_using_camera(a,b)
 
 
 
