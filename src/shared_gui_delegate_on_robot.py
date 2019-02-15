@@ -74,3 +74,8 @@ class DelegateThatReceives(object):
     def line_followingd(self,speed):
         self.robot.m1_Bang_bang_control(speed)
         ""
+    def run_led(self, initial,rate_of_increase):
+        self.robot.m3_led(initial, rate_of_increase)
+
+    def trace(self,speed,direction_speed, rate_of_change):
+        self.robot.m3_led_trace_color_using_camera(speed,direction_speed, rate_of_change)

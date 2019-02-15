@@ -18,7 +18,7 @@ import tkinter
 from tkinter import ttk
 import time
 import m1_extra as m1
-
+import m3_frame
 
 def get_teleoperation_frame(window, mqtt_sender):
     """
@@ -293,6 +293,14 @@ def m3_personal_frame(window, mqtt_sender):
 def m3_carmer_frame(window,mqtt_sender):
     camera=m1.m1_feature_10(window,mqtt_sender)
     return camera
+
+def get_m3_led_frame(window, mqtt_sender):
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+    frame_label = ttk.Label(frame, text="LED frame")
+    led_frame = m3_frame.led_frame(frame, frame_label)
+    return led_frame
+
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
@@ -470,3 +478,10 @@ def line_following(speed, mqtt):
 def begin_trace_the_item(forward_speed_entry,spin_speed_entry,mqtt):
     mqtt.send_message('trace_item',[int(forward_speed_entry.get()),int(spin_speed_entry.get())])
     # m1.begin_trace_the_item(forward_speed_entry,spin_speed_entry,mqtt)
+def handle_run_led(initial_entry,rate_of_change_entry,mqtt_sender):
+    print('run led')
+    mqtt_sender.send_message('run_led',[int(initial_entry), int(rate_of_change_entry)])
+
+def handle_trace(speed_entry,direction_speed_entry, rate_of_change_entry, mqtt_sender):
+    print('trace color')
+    mqtt_sender.send_message('trace',[int(speed_entry),int(direction_speed_entry), int(rate_of_change_entry)])

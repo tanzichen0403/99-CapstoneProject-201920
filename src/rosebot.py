@@ -77,9 +77,9 @@ class RoseBot(object):
 
     def m3_led(self, initial, rate_of_increase):
         self.drive_system.go(50,50)
-        n = initial
 
-        start_dist = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+
+        # start_dist = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
 
         while True:
             # dist = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
@@ -87,34 +87,71 @@ class RoseBot(object):
             # n = n * (rate_of_increase ** ((start_dist-dist)/start_dist))
 
 
+            p2 = int(self.sensor_system.ir_proximity_sensor.get_distance_in_inches())
+            n=p2*0.05/(initial* rate_of_increase)
+
+
             self.led_system.left_led.turn_on()
             time.sleep(n)
             self.led_system.left_led.turn_off()
 
-
             self.led_system.right_led.turn_on()
             time.sleep(n)
-            self.led_system.right_led.turn_off()
+
 
 
             self.led_system.left_led.turn_on()
-            self.led_system.right_led.turn_on()
             time.sleep(n)
             self.led_system.left_led.turn_off()
             self.led_system.right_led.turn_off()
+            time.sleep(n)
 
-            start_dist = dist
 
 
-            """
-            print(d,n)
-            n = n - d * (1 + rate_of_increase/100)
-            if n <=0:
-                n = 0.1
-            print(d,n)
-            if d < 15:
+            if p2 < 2:
+                time.sleep(0.5)
+
                 self.drive_system.stop()
-                break"""
+
+                self.arm_and_claw.raise_arm()
+                break
+
+    def m3_led_trace_color_using_camera(self,speed,directionspeed, rate_of_increase):
+        while True:
+            x=self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            blob = self.sensor_system.camera.get_biggest_blob()
+            print(blob)
+            print(x, "inches")
+
+            if blob.center.x > 180 and blob.center.x < 230:
+                    self.drive_system.go(speed, speed)
+                    p2 = int(self.sensor_system.ir_proximity_sensor.get_distance_in_inches())
+                    n = p2 * 0.05/rate_of_increase
+
+                    self.led_system.left_led.turn_on()
+                    time.sleep(n)
+                    self.led_system.left_led.turn_off()
+
+                    self.led_system.right_led.turn_on()
+                    time.sleep(n)
+
+                    self.led_system.left_led.turn_on()
+                    time.sleep(n)
+                    self.led_system.left_led.turn_off()
+                    self.led_system.right_led.turn_off()
+                    time.sleep(n)
+
+                    print("the robot is on the center")
+            elif blob.center.x < 180 and blob.center.x >0:
+                    self.drive_system.go(0,abs(directionspeed))
+                    print('the robot is on the left')
+            elif blob.center.x > 230 and blob.center.x < 320:
+                    self.drive_system.go(abs(directionspeed),0)
+                    print('the robot is on the right')
+            else:
+                    self.drive_system.right(directionspeed,directionspeed)
+                    print("no object is detect")
+
 
 ###############################################################################
 #    DriveSystem
