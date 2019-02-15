@@ -78,8 +78,14 @@ class RoseBot(object):
     def m3_led(self, initial, rate_of_increase):
         self.drive_system.go(50,50)
         n = initial
+
+        start_dist = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+
         while True:
-            d = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            # dist = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+            #
+            # n = n * (rate_of_increase ** ((start_dist-dist)/start_dist))
+
 
             self.led_system.left_led.turn_on()
             time.sleep(n)
@@ -96,6 +102,11 @@ class RoseBot(object):
             time.sleep(n)
             self.led_system.left_led.turn_off()
             self.led_system.right_led.turn_off()
+
+            start_dist = dist
+
+
+            """
             print(d,n)
             n = n - d * (1 + rate_of_increase/100)
             if n <=0:
@@ -103,7 +114,7 @@ class RoseBot(object):
             print(d,n)
             if d < 15:
                 self.drive_system.stop()
-                break
+                break"""
 
 ###############################################################################
 #    DriveSystem
