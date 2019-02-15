@@ -123,34 +123,53 @@ class RoseBot(object):
             print(blob)
             print(x, "inches")
 
-            if blob.center.x > 180 and blob.center.x < 230:
-                    self.drive_system.go(speed, speed)
-                    p2 = int(self.sensor_system.ir_proximity_sensor.get_distance_in_inches())
-                    n = p2 * 0.05/rate_of_increase
-
-                    self.led_system.left_led.turn_on()
-                    time.sleep(n)
-                    self.led_system.left_led.turn_off()
-
-                    self.led_system.right_led.turn_on()
-                    time.sleep(n)
-
-                    self.led_system.left_led.turn_on()
-                    time.sleep(n)
-                    self.led_system.left_led.turn_off()
-                    self.led_system.right_led.turn_off()
-                    time.sleep(n)
-
-                    print("the robot is on the center")
-            elif blob.center.x < 180 and blob.center.x >0:
-                    self.drive_system.go(0,abs(directionspeed))
-                    print('the robot is on the left')
+            if blob.center.x < 180 and blob.center.x >0:
+                self.drive_system.go(0,abs(directionspeed))
+                print('the robot is on the left')
             elif blob.center.x > 230 and blob.center.x < 320:
-                    self.drive_system.go(abs(directionspeed),0)
-                    print('the robot is on the right')
+                self.drive_system.go(abs(directionspeed),0)
+                print('the robot is on the right')
             else:
-                    self.drive_system.right(directionspeed,directionspeed)
-                    print("no object is detect")
+                self.drive_system.right(directionspeed,directionspeed)
+                print("no object is detect")
+            if blob.center.x > 180 and blob.center.x < 230:
+                self.drive_system.stop()
+                break
+        while True:
+
+            self.drive_system.go(speed, speed)
+            print('1', blob)
+            p2 = int(self.sensor_system.ir_proximity_sensor.get_distance_in_inches())
+            n = p2 * 0.05/rate_of_increase
+
+            if p2<2:
+                self.drive_system.stop()
+                self.arm_and_claw.raise_arm()
+                break
+
+            self.led_system.left_led.turn_on()
+            time.sleep(n)
+            self.led_system.left_led.turn_off()
+
+            self.led_system.right_led.turn_on()
+            time.sleep(n)
+
+            self.led_system.left_led.turn_on()
+            time.sleep(n)
+            self.led_system.left_led.turn_off()
+            self.led_system.right_led.turn_off()
+            time.sleep(n)
+
+            print("the robot is on the center")
+            # elif blob.center.x < 180 and blob.center.x >0:
+            #     self.drive_system.go(0,abs(directionspeed))
+            #     print('the robot is on the left')
+            # elif blob.center.x > 230 and blob.center.x < 320:
+            #     self.drive_system.go(abs(directionspeed),0)
+            #     print('the robot is on the right')
+            # else:
+            #     self.drive_system.right(directionspeed,directionspeed)
+            #     print("no object is detect")
 
 
 ###############################################################################
@@ -416,14 +435,22 @@ class DriveSystem(object):
         of the trained color whose area is at least the given area.
         Requires that the user train the camera on the color of the object.
         """
-
+        while True:
+            B = self.sensor_system.camera.get_biggest_blob()
+            self.go(abs(speed), 0)
+            if B.get_area() > area:
+                break
     def spin_counterclockwise_until_sees_object(self, speed, area):
         """
         Spins counter-clockwise at the given speed until the camera sees an object
         of the trained color whose area is at least the given area.
         Requires that the user train the camera on the color of the object.
         """
-
+        while True:
+            B = self.sensor_system.camera.get_biggest_blob()
+            self.go(0, abs(speed))
+            if B.get_area() > area:
+                break
     def m3_trace_color_using_camera(self,speed,directionspeed):
         while True:
             x=self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
@@ -822,7 +849,9 @@ class InfraredProximitySensor(object):
         is within its field of vision.
         """
         cm_per_in = 2.54
-        return 48 / cm_per_in * self.get_distance() / 100
+        x = 48 / cm_per_in * self.get_distance() / 100
+        print(x)
+        return x
 
 
 ###############################################################################

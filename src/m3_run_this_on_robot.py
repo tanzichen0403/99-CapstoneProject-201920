@@ -18,9 +18,9 @@ def main():
     """
     # run_test_arm()
     # run_test_calibrate_arm()
-    # real_thing()
+    real_thing()
     # run_test_camera(50,30)
-    run_test_led(2,50)
+    # run_test_led(2,50)
     # run_test_led2()
 
 

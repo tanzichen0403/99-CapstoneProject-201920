@@ -298,7 +298,7 @@ def get_m3_led_frame(window, mqtt_sender):
     frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
     frame.grid()
     frame_label = ttk.Label(frame, text="LED frame")
-    led_frame = m3_frame.led_frame(frame, frame_label)
+    led_frame = m3_frame.led_frame(frame, frame_label, mqtt_sender)
     return led_frame
 
 ###############################################################################
@@ -480,8 +480,8 @@ def begin_trace_the_item(forward_speed_entry,spin_speed_entry,mqtt):
     # m1.begin_trace_the_item(forward_speed_entry,spin_speed_entry,mqtt)
 def handle_run_led(initial_entry,rate_of_change_entry,mqtt_sender):
     print('run led')
-    mqtt_sender.send_message('run_led',[int(initial_entry), int(rate_of_change_entry)])
+    mqtt_sender.send_message('run_led',[int(initial_entry.get()), int(rate_of_change_entry.get())])
 
 def handle_trace(speed_entry,direction_speed_entry, rate_of_change_entry, mqtt_sender):
     print('trace color')
-    mqtt_sender.send_message('trace',[int(speed_entry),int(direction_speed_entry), int(rate_of_change_entry)])
+    mqtt_sender.send_message('trace',[int(speed_entry.get()),int(direction_speed_entry.get()), int(rate_of_change_entry.get())])

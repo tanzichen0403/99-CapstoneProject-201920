@@ -5,7 +5,7 @@ import shared_gui
 import tkinter
 from tkinter import ttk
 
-def led_frame(frame, frame_label):
+def led_frame(frame, frame_label, mqtt_sender):
     """
     Constructs and returns a frame on the given window, where the frame
     has Entry and Button objects that control the EV3 robot's motion
@@ -53,7 +53,7 @@ def led_frame(frame, frame_label):
     run_led_button.grid(row=2, column=2)
 
     #button:
-    run_led_button['command'] = lambda: shared_gui.handle_run_led(initial_entry,rate_of_change_entry,mqtt_sender)
+    run_led_button['command'] = lambda: shared_gui.handle_run_led(initial_entry,rate_of_change_entry, mqtt_sender)
     trace_button['command'] = lambda: shared_gui.handle_trace(speed_entry,direction_speed_entry, rate_of_change_entry, mqtt_sender)
 
     return frame
