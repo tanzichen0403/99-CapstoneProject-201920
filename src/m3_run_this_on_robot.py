@@ -19,7 +19,9 @@ def main():
     # run_test_arm()
     # run_test_calibrate_arm()
     # real_thing()
-    run_test_camera(50,30)
+    # run_test_camera(50,30)
+    run_test_led(2,50)
+    # run_test_led2()
 
 
 def run_test_arm():
@@ -47,10 +49,14 @@ def run_test_camera(speed1, speed2):
     b = speed2
     robot.m1_carmra(a,b)
 
+def run_test_led(initial, rate_of_increase):
+    robot = rosebot.RoseBot()
+    robot.m3_led(initial,rate_of_increase)
 
-
-
-
+def run_test_led2():
+    robot = rosebot.RoseBot()
+    robot.led_system.right_led.turn_on()
+    robot.led_system.left_led.turn_on()
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------

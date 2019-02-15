@@ -75,7 +75,35 @@ class RoseBot(object):
         self.drive_system.m3_trace_color_using_camera(forward,dir)
         self.arm_and_claw.raise_arm()
 
+    def m3_led(self, initial, rate_of_increase):
+        self.drive_system.go(50,50)
+        n = initial
+        while True:
+            d = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
 
+            self.led_system.left_led.turn_on()
+            time.sleep(n)
+            self.led_system.left_led.turn_off()
+
+
+            self.led_system.right_led.turn_on()
+            time.sleep(n)
+            self.led_system.right_led.turn_off()
+
+
+            self.led_system.left_led.turn_on()
+            self.led_system.right_led.turn_on()
+            time.sleep(n)
+            self.led_system.left_led.turn_off()
+            self.led_system.right_led.turn_off()
+            print(d,n)
+            n = n - d * (1 + rate_of_increase/100)
+            if n <=0:
+                n = 0.1
+            print(d,n)
+            if d < 15:
+                self.drive_system.stop()
+                break
 
 ###############################################################################
 #    DriveSystem
@@ -531,6 +559,9 @@ class LEDSystem(object):
         """ Constructs and stores the left and right LED objects. """
         self.left_led = LED("left")
         self.right_led = LED("right")
+
+
+
 
 
 ###############################################################################
