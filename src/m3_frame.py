@@ -130,3 +130,5 @@ def simple_calculate(first_entry,second_entry,third_entry,forth_entry,fifth_entr
 
     answer = int(a) + int(c) + int(e) + int(g)
     if b == '-':
+        pass
+
