@@ -25,4 +25,8 @@ def m3_trace_color_using_camera(self, speed, direction_speed):
                 self.stop()
                 break
 
-
+"""用robot做数学题：
+1，输入数字，使用speaker让robot说出结论
+2，follow a line
+3, 
+"""
